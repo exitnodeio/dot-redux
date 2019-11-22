@@ -1,0 +1,4 @@
+---
+# Variables to be established in any machine we are connecting to.
+USER_HOME_DIR: "{{ lookup('env', 'HOME') }}"
+USER_NAME: "{{ lookup('env', 'USER') }}"

@@ -1,0 +1,14 @@
+- name: Basic utilities.  You really should have these.
+  pacman:
+    name:
+      - git
+      - dnsutils
+      - nmap
+      - prettyping
+      - httpie
+      - docker
+      - vim
+      - mtr
+      - sxhkd
+      - yay
+    state: present
