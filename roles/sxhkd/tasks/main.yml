@@ -1,0 +1,13 @@
+- name: Install sxhkd
+  pacman:
+    name:
+      - sxhkd
+    state: present
+
+- name: Copy sxhkd configuration
+  copy:
+    src: ../files/sxhkdrc
+    dest: {{ USER_HOME_DIR }}/.config/sxhkd/sxhkdrc
+    owner: {{ USER_NAME }}
+    group: {{ USER_NAME }}
+    mode: '0644'

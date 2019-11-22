@@ -1,0 +1,23 @@
+- name: Copy .profile
+  copy:
+    src: ../files/.profile
+    dest: {{ USER_HOME_DIR }}/.profile
+    owner: {{ USER_NAME }}
+    group: {{ USER_NAME }}
+    mode: '0644'
+
+- name: Copy .bashrc
+  copy:
+    src: ../files/.bashrc
+    dest: {{ USER_HOME_DIR }}/.bashrc
+    owner: {{ USER_NAME }}
+    group: {{ USER_NAME }}
+    mode: '0644'
+
+- name: Copy .zshrc
+  copy:
+    src: ../files/.zshrc
+    dest: {{ USER_HOME_DIR }}/.zshrc
+    owner: {{ USER_NAME }}
+    group: {{ USER_NAME }}
+    mode: '0644'

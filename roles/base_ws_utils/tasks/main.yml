@@ -11,4 +11,5 @@
       - mtr
       - sxhkd
       - yay
+      - kitty
     state: present
