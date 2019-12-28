@@ -1,6 +1,9 @@
 - name: Basic utilities.  You really should have these.
   pacman:
     name:
+      - base-devel
+      - fakeroot
+      - binutils
       - git
       - dnsutils
       - nmap
