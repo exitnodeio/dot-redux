@@ -16,3 +16,4 @@
       - yay
       - kitty
     state: present
+  become: yes

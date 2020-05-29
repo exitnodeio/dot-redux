@@ -1,0 +1,18 @@
+# This file contains common configurations that get deployed to all shell configuration files
+# i.e. .profile .bashrc .zshrc
+
+source $HOME/.config/scripts/functions.sh
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ~="cd ~"
+alias vi="vim"
+alias ll='ls -lahtr'
+alias cp='cp -i'
+alias df='df -h'
+alias free='free -m'
+alias more='$HOME/.config/vimpager/vimpager'
+alias less='$HOME/.config/vimpager/vimpager'
+
+

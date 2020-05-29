@@ -1,23 +1,52 @@
+- name: Install vimpager
+  git:
+    repo: "git://github.com/rkitover/vimpager"
+    dest: "{{ USER_HOME_DIR }}/.config/vimpager"
+
+- name: Install zgen
+  git:
+    repo: "https://github.com/tarjoilija/zgen.git"
+    dest: "{{ USER_HOME_DIR }}/.config/zgen"
+    
+- name: Make Scripts Directory
+  file:
+    path: "{{ USER_HOME_DIR }}/.config/scripts"
+    state: directory
+
+- name: Copy Scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ USER_HOME_DIR }}/.config/scripts/"
+    owner: "{{ USER_NAME }}"
+    group: "{{ USER_NAME }}"
+    mode: '0744'
+  with_fileglob:
+    - "scripts/*"
+
 - name: Copy .profile
   copy:
-    src: ../files/.profile
-    dest: {{ USER_HOME_DIR }}/.profile
-    owner: {{ USER_NAME }}
-    group: {{ USER_NAME }}
+    src: .profile
+    dest: "{{ USER_HOME_DIR }}/.profile"
+    owner: "{{ USER_NAME }}"
+    group: "{{ USER_NAME }}"
     mode: '0644'
 
-- name: Copy .bashrc
-  copy:
-    src: ../files/.bashrc
-    dest: {{ USER_HOME_DIR }}/.bashrc
-    owner: {{ USER_NAME }}
-    group: {{ USER_NAME }}
-    mode: '0644'
+- name: Manage Shell Configuration Blocks
+  blockinfile:
+    block: "{{ lookup('file', item) }}"
+    path: "{{ USER_HOME_DIR }}/{{ item | basename }}"
+    marker: "# {mark} DISCRETE ANSIBLE MANAGED BLOCK"
+    insertbefore: BOF
+    create: yes
+  with_fileglob:
+    - "shell_configs/.*"
 
-- name: Copy .zshrc
-  copy:
-    src: ../files/.zshrc
-    dest: {{ USER_HOME_DIR }}/.zshrc
-    owner: {{ USER_NAME }}
-    group: {{ USER_NAME }}
-    mode: '0644'
+- name : Manage Common Shell Configuration Block
+  blockinfile:
+    block: "{{ lookup('file', '.common') }}"
+    path: "{{ USER_HOME_DIR }}/{{ item | basename }}"
+    marker: "# {mark} COMMON ANSIBLE MANAGED BLOCK"
+    insertbefore: "BEGIN DISCRETE ANSIBLE MANAGED BLOCK"
+    create: yes
+  with_fileglob:
+    - "shell_configs/.*"
